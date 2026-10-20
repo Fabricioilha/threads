@@ -84,27 +84,6 @@
         font-size: 1.3rem;
       }
 
-      nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      nav a {
-        text-decoration: none;
-        color: var(--muted);
-        font-size: 0.92rem;
-        padding: 7px 12px;
-        border: 1px solid transparent;
-        border-radius: 999px;
-        transition: 0.2s ease;
-      }
-
-      nav a:hover {
-        border-color: var(--line);
-        color: var(--text);
-      }
-
       .hero {
         padding: 42px 0 20px;
       }
@@ -565,6 +544,62 @@
         color: var(--muted);
       }
 
+      .sim-guide {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin: 16px 0;
+      }
+
+      .sim-guide article {
+        padding: 14px;
+      }
+
+      .sim-guide strong {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--cyan);
+      }
+
+      .sim-guide span,
+      .control-help,
+      .comparison-note {
+        color: var(--muted);
+        font-size: 0.82rem;
+        line-height: 1.5;
+      }
+
+      .control-help {
+        display: block;
+        margin-top: 5px;
+      }
+
+      .comparison-panel {
+        margin-top: 18px;
+        padding: 18px;
+      }
+
+      .comparison-panel h3 {
+        margin: 0 0 6px;
+      }
+
+      .comparison-panel .comparison-table {
+        margin-top: 10px;
+      }
+
+      .comparison-table td strong {
+        color: var(--text);
+      }
+
+      .current-model-row {
+        background: rgba(81, 214, 255, 0.06);
+      }
+
+      .result-pending {
+        color: var(--muted);
+        font-style: italic;
+      }
+
       .footer {
         padding: 20px 0 40px;
         color: var(--muted);
@@ -954,6 +989,231 @@
         margin: 0;
       }
 
+      .process-sim {
+        padding: 20px;
+      }
+
+      .process-scene {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
+        gap: 16px;
+      }
+
+      .process-world,
+      .process-story,
+      .process-kernel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 17px;
+        background: rgba(255, 255, 255, 0.025);
+        padding: 16px;
+      }
+
+      .process-world {
+        display: grid;
+        align-content: start;
+        gap: 14px;
+        background:
+          radial-gradient(circle at 18% 22%, rgba(81, 214, 255, 0.07), transparent 30%),
+          linear-gradient(145deg, rgba(14, 27, 37, 0.95), rgba(7, 14, 20, 0.95));
+      }
+
+      .process-world-label {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        color: var(--muted);
+        font: 700 0.72rem/1.4 "Consolas", monospace;
+        letter-spacing: 0.07em;
+      }
+
+      .process-state-map {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .process-state {
+        position: relative;
+        min-width: 0;
+        min-height: 114px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        text-align: center;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.025);
+        transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .process-state[data-state="new"] { grid-column: 1; grid-row: 1; }
+      .process-state[data-state="ready"] { grid-column: 2; grid-row: 1; }
+      .process-state[data-state="running"] { grid-column: 3; grid-row: 1; }
+      .process-state[data-state="waiting"] { grid-column: 2; grid-row: 2; }
+      .process-state[data-state="terminated"] { grid-column: 3; grid-row: 2; }
+
+      .process-state-icon {
+        font-size: 1.55rem;
+        line-height: 1.1;
+      }
+
+      .process-state strong {
+        font-size: 0.9rem;
+      }
+
+      .process-state small {
+        color: var(--muted);
+        font-size: 0.72rem;
+      }
+
+      .process-state.active {
+        transform: translateY(-3px) scale(1.025);
+        border-color: var(--cyan);
+        background: rgba(81, 214, 255, 0.12);
+        box-shadow: 0 0 22px rgba(81, 214, 255, 0.18);
+      }
+
+      .process-state[data-state="waiting"].active {
+        border-color: var(--amber);
+        background: rgba(255, 190, 92, 0.1);
+        box-shadow: 0 0 22px rgba(255, 190, 92, 0.16);
+      }
+
+      .process-state[data-state="terminated"].active {
+        border-color: var(--purple);
+        background: rgba(147, 110, 255, 0.12);
+        box-shadow: 0 0 22px rgba(147, 110, 255, 0.18);
+      }
+
+      .process-token {
+        display: none;
+        align-items: center;
+        gap: 5px;
+        margin-top: 3px;
+        padding: 3px 8px;
+        border: 1px solid rgba(119, 240, 185, 0.4);
+        border-radius: 999px;
+        background: rgba(119, 240, 185, 0.12);
+        color: var(--green);
+        font: 700 0.68rem "Consolas", monospace;
+      }
+
+      .process-state.active .process-token {
+        display: inline-flex;
+        animation: processArrive 0.4s ease-out both;
+      }
+
+      @keyframes processArrive {
+        from { opacity: 0; transform: translateY(7px) scale(0.85); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      .process-transition {
+        min-height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border: 1px dashed rgba(81, 214, 255, 0.3);
+        border-radius: 12px;
+        color: var(--cyan);
+        text-align: center;
+        font-size: 0.82rem;
+      }
+
+      .process-world-footer {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .process-resource {
+        display: grid;
+        gap: 5px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        padding: 11px;
+        background: rgba(255, 255, 255, 0.025);
+      }
+
+      .process-resource strong {
+        color: var(--text);
+        font-size: 0.78rem;
+      }
+
+      .process-resource span {
+        color: var(--muted);
+        font-size: 0.72rem;
+        line-height: 1.45;
+      }
+
+      .process-story {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .process-story h3 {
+        margin: 10px 0 8px;
+      }
+
+      .process-story p {
+        color: var(--muted);
+      }
+
+      .process-kernel {
+        margin-top: 12px;
+        background: #061019;
+      }
+
+      .process-kernel-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+        color: var(--muted);
+        font-size: 0.75rem;
+      }
+
+      .process-kernel dl {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 7px 12px;
+        margin: 0;
+        font: 0.78rem/1.45 "Consolas", monospace;
+      }
+
+      .process-kernel dt {
+        color: var(--muted);
+      }
+
+      .process-kernel dd {
+        margin: 0;
+        color: var(--green);
+        text-align: right;
+      }
+
+      .process-controls {
+        display: grid;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .process-controls .tiny {
+        margin: 0;
+      }
+
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.52;
+        transform: none;
+      }
+
       .pipeline {
         display: grid;
         grid-template-columns: repeat(7, minmax(90px, 1fr));
@@ -1133,7 +1393,9 @@
         .text-grid,
         .story-grid,
         .queue-block,
+        .process-scene,
         .context-layout,
+        .sim-guide,
         .phase-grid,
         .example-grid,
         .hardware-grid,
@@ -1155,11 +1417,6 @@
       }
 
       @media (max-width: 560px) {
-        .topbar {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
         .stats-strip,
         .metric-grid {
           grid-template-columns: 1fr;
@@ -1208,6 +1465,33 @@
           padding: 15px;
         }
 
+        .process-sim {
+          padding: 14px;
+        }
+
+        .process-world,
+        .process-story,
+        .process-kernel {
+          padding: 12px;
+        }
+
+        .process-state-map {
+          gap: 7px;
+        }
+
+        .process-state {
+          min-height: 104px;
+          padding: 4px;
+        }
+
+        .process-state strong {
+          font-size: 0.78rem;
+        }
+
+        .process-state small {
+          font-size: 0.66rem;
+        }
+
         .context-threads {
           grid-template-columns: 1fr;
         }
@@ -1243,17 +1527,6 @@
           <div class="brand-mark">T</div>
           <span>Threads em ação</span>
         </div>
-        <nav>
-          <a href="#overview">Visão</a>
-          <a href="#phases">Fases</a>
-          <a href="#simulator">Simulação</a>
-          <a href="#context-switch">Troca de contexto</a>
-          <a href="#hardware">Hardware &amp; I/O</a>
-          <a href="#memory">Memória</a>
-          <a href="#models">Modelos</a>
-          <a href="#runtime">Runtimes</a>
-          <a href="#details">Detalhes</a>
-        </nav>
       </div>
     </header>
 
@@ -1350,6 +1623,101 @@
         </div>
       </section>
 
+      <section class="section" id="process-lifecycle">
+        <h2>Um processo em viagem pelo sistema operacional</h2>
+        <p class="section-intro">
+          Acompanhe P-17 desde sua criação até o encerramento. A animação mostra o modelo clássico de estados para um
+          processo com uma única thread: quando ele aguarda I/O, o sistema operacional pode dar o core a outro processo.
+          Em um processo com várias threads, uma thread bloqueada não implica necessariamente que o processo inteiro pare.
+        </p>
+        <div class="panel process-sim">
+          <div class="process-scene">
+            <div class="process-world">
+              <div class="process-world-label">
+                <span>MAPA DE ESTADOS · PROCESSO P-17</span>
+                <span id="processCycleCounter">ETAPA 1 / 7</span>
+              </div>
+              <div class="process-state-map" aria-label="Estados possíveis do processo">
+                <div class="process-state" data-state="new">
+                  <span class="process-state-icon" aria-hidden="true">📦</span>
+                  <strong>Novo</strong><small>criado pelo SO</small>
+                  <span class="process-token">🧩 P-17</span>
+                </div>
+                <div class="process-state" data-state="ready">
+                  <span class="process-state-icon" aria-hidden="true">🚏</span>
+                  <strong>Pronto</strong><small>na fila da CPU</small>
+                  <span class="process-token">🧩 P-17</span>
+                </div>
+                <div class="process-state" data-state="running">
+                  <span class="process-state-icon" aria-hidden="true">🏃</span>
+                  <strong>Executando</strong><small>usando um core</small>
+                  <span class="process-token">🧩 P-17</span>
+                </div>
+                <div class="process-state" data-state="waiting">
+                  <span class="process-state-icon" aria-hidden="true">⏳</span>
+                  <strong>Esperando</strong><small>I/O ou evento</small>
+                  <span class="process-token">🧩 P-17</span>
+                </div>
+                <div class="process-state" data-state="terminated">
+                  <span class="process-state-icon" aria-hidden="true">🏁</span>
+                  <strong>Encerrado</strong><small>execução terminou</small>
+                  <span class="process-token">🧩 P-17</span>
+                </div>
+              </div>
+              <div class="process-transition" aria-live="polite">
+                <span aria-hidden="true">✨</span>
+                <strong id="processTransition">O sistema operacional cria P-17</strong>
+              </div>
+              <div class="process-world-footer">
+                <div class="process-resource">
+                  <strong id="processCpuTitle">🧠 CPU / core</strong>
+                  <span id="processCpuState">Preparando para executar processos.</span>
+                </div>
+                <div class="process-resource">
+                  <strong>🗺️ Memória do processo</strong>
+                  <span id="processMemoryState">O SO prepara o espaço de endereçamento virtual de P-17.</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <article class="process-story">
+                <span class="phase-number" id="processStepLabel">PASSO 1 DE 7</span>
+                <h3 id="processStepTitle">Nasce um processo</h3>
+                <p id="processStepText" aria-live="polite"></p>
+                <span class="tech-label" id="processConceptTag">programa → processo</span>
+              </article>
+              <div class="process-kernel">
+                <div class="process-kernel-title">
+                  <strong>🔎 Ficha do kernel (PCB)</strong>
+                  <span>modelo ilustrativo</span>
+                </div>
+                <dl>
+                  <dt>PID</dt><dd id="processPid">P-17</dd>
+                  <dt>Estado</dt><dd id="processPcbState">novo</dd>
+                  <dt>Memória virtual</dt><dd id="processAddressSpace">preparando</dd>
+                  <dt>Thread principal</dt><dd id="processThreadState">a criar</dd>
+                  <dt>Recurso/evento</dt><dd id="processResourceState">nenhum</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div class="process-controls">
+            <div class="actions">
+              <button class="secondary" id="processPrevious" type="button">← Anterior</button>
+              <button class="primary" id="processPlay" type="button" aria-pressed="false">▶ Reproduzir ciclo</button>
+              <button class="secondary" id="processNext" type="button">Próxima etapa →</button>
+              <button class="secondary" id="processReset" type="button">↺ Reiniciar</button>
+            </div>
+            <p class="tiny">
+              É um modelo didático de processo tradicional com uma thread. Um programa é um arquivo/instruções; um
+              processo é uma execução isolada com recursos e estado gerenciados pelo SO. PC e registradores pertencem
+              ao contexto da thread; o PCB guarda informações do processo e referências aos seus recursos/threads.
+              Em sistemas reais os nomes, filas e detalhes variam.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section class="section" id="phases">
         <h2>Da criação ao término: as fases de uma execução</h2>
         <p class="section-intro">
@@ -1424,74 +1792,94 @@
       </section>
 
       <section class="section" id="simulator">
-        <h2>Simulador interativo: o ciclo de vida da thread</h2>
+        <h2>Simulador: como tarefas dividem CPU, espera e memória</h2>
         <p class="section-intro">
-          Ajuste a carga e observe filas, workers e estados concorrentes. A animação modela uma fila abstrata em ciclos
-          didáticos, não o scheduler de um sistema real. Os modelos alteram especialmente os limites/estimativas de
-          recursos. Cada ciclo visual dura cerca de 260 ms; custo de troca, throughput e memória são aproximações:
-          a estimativa de memória não inclui heap, runtime, kernel nem distingue memória virtual reservada de RAM
-          residente. Use a próxima simulação para acompanhar registradores e troca de contexto em baixo nível.
+          Aqui, cada bolinha T representa uma tarefa curta de trabalho. Observe a fila, os workers e os cores: uma tarefa
+          só executa quando é despachada para um core; se pedir I/O, fica bloqueada enquanto outras podem avançar.
+          Os controles definem a mesma carga para os quatro modelos e a tabela abaixo registra cada execução concluída.
+          Os resultados são deste modelo didático: não significam que trocar de modelo produzirá a mesma diferença em um computador real.
         </p>
+        <div class="sim-guide">
+          <article class="panel">
+            <strong>1 · Defina o cenário</strong>
+            <span>Escolha quantos cores e tarefas existem e quanto trabalho e espera cada tarefa terá.</span>
+          </article>
+          <article class="panel">
+            <strong>2 · Escolha um modelo</strong>
+            <span>Compare processo, thread, pool e virtual thread usando os mesmos parâmetros.</span>
+          </article>
+          <article class="panel">
+            <strong>3 · Execute até concluir</strong>
+            <span>Leia as métricas e compare tempo em ciclos, vazão, despachos e memória estimada na tabela.</span>
+          </article>
+        </div>
         <div class="controls-layout">
           <aside class="panel control-panel">
             <div class="controls">
               <div class="slider">
                 <div class="slider-head">
-                  <label for="cores">Núcleos de CPU</label>
+                  <label for="cores">Núcleos de CPU disponíveis</label>
                   <span class="slider-value" id="coresValue">4</span>
                 </div>
                 <input id="cores" type="range" min="1" max="16" value="4" />
+                <small class="control-help">Quantos trabalhos podem executar ao mesmo tempo. Com 2 cores, no máximo 2 tarefas rodam simultaneamente.</small>
               </div>
 
               <div class="slider">
                 <div class="slider-head">
-                  <label for="threads">Tarefas concorrentes</label>
+                  <label for="threads">Tarefas do cenário</label>
                   <span class="slider-value" id="threadsValue">18</span>
                 </div>
                 <input id="threads" type="range" min="2" max="80" value="18" />
+                <small class="control-help">Quantidade total de tarefas curtas a concluir. Se for maior que o número de cores, parte delas espera na fila.</small>
               </div>
 
               <div class="slider">
                 <div class="slider-head">
-                  <label for="ioChance">Probabilidade de I/O</label>
+                  <label for="ioChance">Chance de uma tarefa bloquear por I/O</label>
                   <span class="slider-value" id="ioChanceValue">26%</span>
                 </div>
                 <input id="ioChance" type="range" min="0" max="90" value="26" />
+                <small class="control-help">Em cada unidade de trabalho executada, essa chance pode bloquear a tarefa pelo período de espera abaixo. I/O representa disco/rede, não cálculo da CPU.</small>
               </div>
 
               <div class="slider">
                 <div class="slider-head">
-                  <label for="switchCost">Custo de context switch</label>
+                  <label for="switchCost">Custo estimado por despacho</label>
                   <span class="slider-value" id="switchCostValue">2 µs</span>
                 </div>
                 <input id="switchCost" type="range" min="0" max="10" value="2" />
+                <small class="control-help">Valor didático multiplicado pelo número de despachos. Não mede o custo real do seu computador.</small>
               </div>
 
               <div class="slider">
                 <div class="slider-head">
-                  <label for="stackMb">Pilha nativa por worker</label>
+                  <label for="stackMb">Reserva de pilha nativa por worker</label>
                   <span class="slider-value" id="stackMbValue">2 MB</span>
                 </div>
                 <input id="stackMb" type="range" min="1" max="16" value="2" />
+                <small class="control-help">Entra apenas na estimativa comparativa de memória para workers nativos; não é RAM medida nem o tamanho total do processo.</small>
               </div>
               <div class="slider">
                 <div class="slider-head">
-                  <label for="deviceWait">Espera média de I/O</label>
+                  <label for="deviceWait">Duração da espera de I/O</label>
                   <span class="slider-value" id="deviceWaitValue">5 ciclos</span>
                 </div>
                 <input id="deviceWait" type="range" min="1" max="20" value="5" />
+                <small class="control-help">Por quantos ciclos didáticos uma tarefa fica bloqueada. Não equivale ao tempo de um SSD ou da rede.</small>
               </div>
               <div class="slider">
                 <div class="slider-head">
-                  <label for="workingSet">Conjunto de trabalho</label>
-                  <span class="slider-value" id="workingSetValue">8 MB</span>
+                  <label for="workingSet">Trabalho de CPU por tarefa</label>
+                  <span class="slider-value" id="workingSetValue">8 unidades</span>
                 </div>
                 <input id="workingSet" type="range" min="1" max="64" value="8" />
+                <small class="control-help">Unidades abstratas de cálculo. Mais unidades fazem cada tarefa exigir mais ciclos; não simulam tamanho de memória nem cache.</small>
               </div>
 
               <div>
                 <div class="slider-head" style="margin-bottom: 8px;">
-                  <span>Modelo</span>
+                  <strong>Modelo de execução</strong>
                 </div>
                 <div class="toggle-group">
                   <button class="toggle active" data-model="process">Processo</button>
@@ -1499,6 +1887,7 @@
                   <button class="toggle" data-model="pool">Thread Pool</button>
                   <button class="toggle" data-model="virtual">Virtual Thread</button>
                 </div>
+                <small class="control-help" id="modelHelp">Processo: cada tarefa é um processo separado; maior isolamento e maior reserva estimada de memória.</small>
               </div>
 
               <div class="actions">
@@ -1520,15 +1909,15 @@
 
             <div class="queue-block">
               <div class="queue">
-                <h3>Fila ready</h3>
+                <h3>Tarefas prontas</h3>
                 <div id="readyQueue" class="queue-body"></div>
               </div>
               <div class="queue">
-                <h3>Fila do pool</h3>
+                <h3>Aguardando worker</h3>
                 <div id="poolQueue" class="queue-body"></div>
               </div>
               <div class="queue">
-                <h3>Bloqueados / I/O</h3>
+                <h3>Bloqueadas por I/O</h3>
                 <div id="blockedQueue" class="queue-body"></div>
               </div>
             </div>
@@ -1538,22 +1927,67 @@
 
             <div class="stats-strip">
               <div class="panel kpi">
-                <small>Utilização da CPU</small>
+                <small>Cores ocupados agora</small>
                 <strong id="cpuUtil">0%</strong>
               </div>
               <div class="panel kpi">
-                <small>Throughput</small>
-                <strong id="throughput">0</strong>
+                <small>Vazão estimada nesta execução</small>
+                <strong id="throughput">0 tarefas/s</strong>
               </div>
               <div class="panel kpi">
-                <small>Overhead estimado de troca</small>
+                <small>Custo estimado de despachos</small>
                 <strong id="latency">0 µs</strong>
               </div>
               <div class="panel kpi">
-                <small>Memória estimada</small>
+                <small>Reserva simplificada de memória</small>
                 <strong id="memoryEstimate">0 MB</strong>
               </div>
             </div>
+            <p class="comparison-note" id="metricExplanation">
+              Antes de iniciar, os indicadores mostram o cenário zerado. Ao executar, atualizam a cada ciclo; os resultados finais ficam na tabela comparativa.
+            </p>
+          </div>
+        </div>
+        <div class="panel comparison-panel">
+          <h3>Resultados lado a lado</h3>
+          <p class="comparison-note" id="comparisonStatus">
+            Os resultados para os quatro modelos são calculados para o cenário atual e atualizados quando os parâmetros mudam.
+          </p>
+          <div class="comparison-table-wrap">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>Modelo</th>
+                  <th>Workers/carriers neste modelo</th>
+                  <th>Reserva de memória estimada</th>
+                  <th>Tempo simulado até concluir</th>
+                  <th>Vazão média da animação</th>
+                  <th>Despachos · custo calculado</th>
+                </tr>
+              </thead>
+              <tbody id="modelComparisonBody"></tbody>
+            </table>
+          </div>
+          <p class="comparison-note">
+            A tabela já calcula o resultado comparativo para os quatro modelos. Para ver como os estados mudam, selecione um
+            modelo e clique em “Simular”; a animação percorre a mesma carga determinística. Cada ciclo da animação dura cerca
+            de 260 ms visuais. A vazão divide as tarefas concluídas pelo tempo simulado; esses números não são medições do computador.
+          </p>
+          <p class="comparison-note">
+            Interpretação importante: processo, thread e virtual thread usam o mesmo escalonamento simplificado; seus tempos
+            podem ser iguais. O pool limita workers e pode criar fila extra; os modelos também diferem na estimativa de memória.
+            Custos reais de criação, troca, isolamento, runtime e I/O não são medidos.
+          </p>
+          <p class="comparison-note">
+            Fórmulas da estimativa: Processo = tarefas × (pilha + 32 MB didáticos por processo); Thread = tarefas × pilha;
+            Pool = workers limitados × pilha; Virtual Thread = carriers limitados × pilha + cerca de 1 KiB por tarefa virtual.
+            Os 32 MB são uma suposição visual, não uma característica universal de processos.
+          </p>
+          <div class="callout">
+            Experimento sugerido: use 24 tarefas, 2 cores, chance de I/O em 60% e espera de 8 ciclos. Compare “Thread”,
+            “Thread Pool” e “Virtual Thread”: observe quantas tarefas ficam bloqueadas, quantas aguardam worker e como muda
+            a memória estimada. Depois reduza I/O a 0% para ver que, com trabalho só de CPU, o paralelismo continua limitado
+            pelo número de cores.
           </div>
         </div>
       </section>
@@ -1956,6 +2390,8 @@ virtual:  task leve + scheduler JVM</div>
 
       <div class="footer">
         Material baseado em arquitetura de sistemas concorrentes: processo, thread, pool, virtual threads e runtime moderno.
+        <br />
+        Projeto criado por <strong>Fabricio Nascimento Siqueira</strong>.
       </div>
     </main>
 
@@ -1980,6 +2416,7 @@ virtual:  task leve + scheduler JVM</div>
         stackMbValue: document.getElementById('stackMbValue'),
         deviceWaitValue: document.getElementById('deviceWaitValue'),
         workingSetValue: document.getElementById('workingSetValue'),
+        modelHelp: document.getElementById('modelHelp'),
         readyQueue: document.getElementById('readyQueue'),
         poolQueue: document.getElementById('poolQueue'),
         blockedQueue: document.getElementById('blockedQueue'),
@@ -1989,6 +2426,9 @@ virtual:  task leve + scheduler JVM</div>
         latency: document.getElementById('latency'),
         memory: document.getElementById('memoryEstimate'),
         insight: document.getElementById('simInsight'),
+        metricExplanation: document.getElementById('metricExplanation'),
+        comparisonBody: document.getElementById('modelComparisonBody'),
+        comparisonStatus: document.getElementById('comparisonStatus'),
         toggleRun: document.getElementById('toggleRun'),
         reset: document.getElementById('resetSim')
       };
@@ -2001,16 +2441,84 @@ virtual:  task leve + scheduler JVM</div>
         runningIds: [],
         workerCapacity: 0,
         nextThreadId: 1,
+        comparisonRuns: {},
       };
 
       function getModelMeta(model) {
         const models = {
-          process: { label: 'Processo', description: 'Processos isolam espaços de endereçamento; alternar pode trocar contexto de memória e reduzir localidade de TLB/cache. Memória estimada inclui uma reserva didática de 32 MB por processo.' },
-          thread: { label: 'Thread nativa', description: 'Threads nativas compartilham o espaço virtual do processo; cada worker mantém contexto e pilha próprios e pode executar em paralelo em cores diferentes.' },
-          pool: { label: 'Thread Pool', description: 'O pool reutiliza workers. Este modelo limita workers a até duas vezes os cores; tarefas excedentes aguardam na fila e um worker bloqueado ocupa sua vaga.' },
-          virtual: { label: 'Virtual Thread', description: 'Virtual threads são tarefas leves multiplexadas em carriers. O modelo reserva pilhas nativas para carriers e estima cerca de 1 KiB por tarefa virtual; CPU-bound ainda depende dos cores.' }
+          process: {
+            label: 'Processo',
+            help: 'Cada tarefa é modelada como um processo separado: mais isolamento e uma reserva-base de memória didática por processo.',
+            workers: 'um processo por tarefa'
+          },
+          thread: {
+            label: 'Thread',
+            help: 'Cada tarefa usa uma thread nativa no mesmo processo: compartilham o espaço de memória e cada thread reserva sua pilha.',
+            workers: 'uma thread nativa por tarefa'
+          },
+          pool: {
+            label: 'Thread Pool',
+            help: 'Um conjunto limitado de threads nativas reutilizáveis executa as tarefas; o excedente aguarda na fila do pool.',
+            workers: 'threads nativas reutilizadas'
+          },
+          virtual: {
+            label: 'Virtual Thread',
+            help: 'Cada tarefa é leve e pode esperar sem ocupar um carrier em runtimes compatíveis; o número de cores ainda limita paralelismo de CPU.',
+            workers: 'tarefas leves + carriers'
+          }
         };
         return models[model];
+      }
+
+      function getWorkerCount(model, taskCount, coreCount) {
+        return model === 'pool' || model === 'virtual'
+          ? Math.min(taskCount, coreCount * 2)
+          : taskCount;
+      }
+
+      function estimateMemoryMb(model, taskCount, coreCount, nativeStackMb) {
+        const workers = getWorkerCount(model, taskCount, coreCount);
+        if (model === 'process') return taskCount * (nativeStackMb + 32);
+        if (model === 'thread' || model === 'pool') return workers * nativeStackMb;
+        return workers * nativeStackMb + taskCount / 1024;
+      }
+
+      function formatMemoryMb(memoryMb) {
+        return memoryMb < 1 ? memoryMb.toFixed(3) + ' MB' : memoryMb.toFixed(1) + ' MB';
+      }
+
+      function renderComparison() {
+        const taskCount = Number(controls.threads.value);
+        const coreCount = Number(controls.cores.value);
+        const stackMb = Number(controls.stackMb.value);
+        const models = ['process', 'thread', 'pool', 'virtual'];
+        const fragments = models.map(model => {
+          const meta = getModelMeta(model);
+          const workers = getWorkerCount(model, taskCount, coreCount);
+          const memory = estimateMemoryMb(model, taskCount, coreCount, stackMb);
+          const result = state.comparisonRuns[model];
+          const row = document.createElement('tr');
+          if (model === controls.mode) row.classList.add('current-model-row');
+          const cells = [
+            '<strong>' + meta.label + '</strong>',
+            workers + ' · ' + meta.workers,
+            formatMemoryMb(memory),
+            result ? result.ticks + ' ciclos' : '<span class="result-pending">Execute para medir</span>',
+            result ? result.throughput + ' tarefas/s' : '<span class="result-pending">—</span>',
+            result ? result.dispatches + ' · ' + result.overhead + ' µs' : '<span class="result-pending">—</span>'
+          ];
+          cells.forEach(value => {
+            const cell = document.createElement('td');
+            cell.innerHTML = value;
+            row.appendChild(cell);
+          });
+          return row;
+        });
+        ui.comparisonBody.replaceChildren(...fragments);
+        const completed = models.filter(model => state.comparisonRuns[model]).length;
+        ui.comparisonStatus.textContent = completed
+          ? 'Resultados calculados para os ' + completed + ' modelos com os parâmetros atuais. Execute a animação de cada modelo para observar como o resultado é produzido.'
+          : 'Calculando resultados comparativos para o cenário atual.';
       }
 
       function syncLabels() {
@@ -2020,44 +2528,58 @@ virtual:  task leve + scheduler JVM</div>
         ui.switchCostValue.textContent = controls.switchCost.value + ' µs';
         ui.stackMbValue.textContent = controls.stackMb.value + ' MB';
         ui.deviceWaitValue.textContent = controls.deviceWait.value + ' ciclos';
-        ui.workingSetValue.textContent = controls.workingSet.value + ' MB';
+        ui.workingSetValue.textContent = controls.workingSet.value +
+          (controls.workingSet.value === '1' ? ' unidade' : ' unidades');
         if (annotateTechnicalTermsIn) {
           [ui.coresValue, ui.threadsValue, ui.ioChanceValue, ui.switchCostValue, ui.stackMbValue, ui.deviceWaitValue, ui.workingSetValue]
             .forEach(annotateTechnicalTermsIn);
         }
       }
 
-      function buildThreads() {
-        const threadCount = Number(controls.threads.value);
+      function buildThreads(simulation = state, model = controls.mode, parameters = getSimulationParameters()) {
+        const threadCount = parameters.taskCount;
         const threads = [];
-        const workingSet = Number(controls.workingSet.value);
-        state.workerCapacity = controls.mode === 'pool'
-          ? Math.min(threadCount, Number(controls.cores.value) * 2)
+        const workUnits = parameters.workUnits;
+        simulation.workerCapacity = model === 'pool'
+          ? Math.min(threadCount, parameters.coreCount * 2)
           : threadCount;
 
         for (let i = 0; i < threadCount; i++) {
           threads.push({
             id: i + 1,
-            remaining: 24 + Math.floor(Math.random() * 18) + Math.ceil(workingSet / 4),
-            status: i < state.workerCapacity ? 'ready' : 'queued',
+            remaining: 24 + ((i * 17 + 11) % 18) + Math.ceil(workUnits / 4),
+            status: i < simulation.workerCapacity ? 'ready' : 'queued',
             waited: 0,
-            blockedFor: 0
+            blockedFor: 0,
+            stepsRun: 0
           });
         }
 
-        state.threads = threads;
-        state.tick = 0;
-        state.switches = 0;
-        state.runningIds = [];
-        state.nextThreadId = 1;
+        simulation.threads = threads;
+        simulation.tick = 0;
+        simulation.switches = 0;
+        simulation.runningIds = [];
+        simulation.nextThreadId = 1;
       }
 
-      function getReadyThreads() {
-        return state.threads.filter(thread => thread.status === 'ready');
+      function getSimulationParameters() {
+        return {
+          coreCount: Number(controls.cores.value),
+          taskCount: Number(controls.threads.value),
+          ioChance: Number(controls.ioChance.value) / 100,
+          switchCost: Number(controls.switchCost.value),
+          stackMb: Number(controls.stackMb.value),
+          deviceWait: Number(controls.deviceWait.value),
+          workUnits: Number(controls.workingSet.value)
+        };
       }
 
-      function getBlockedThreads() {
-        return state.threads.filter(thread => thread.status === 'blocked');
+      function getReadyThreads(simulation = state) {
+        return simulation.threads.filter(thread => thread.status === 'ready');
+      }
+
+      function getBlockedThreads(simulation = state) {
+        return simulation.threads.filter(thread => thread.status === 'blocked');
       }
 
       function renderQueue(container, list) {
@@ -2118,15 +2640,98 @@ virtual:  task leve + scheduler JVM</div>
         renderQueue(ui.blockedQueue, getBlockedThreads());
       }
 
-      function releasePoolSlots() {
-        if (controls.mode !== 'pool') return;
-        const activeWorkers = state.threads.filter(thread => thread.status !== 'queued' && thread.status !== 'done').length;
-        let freeSlots = state.workerCapacity - activeWorkers;
-        state.threads.forEach(thread => {
+      function releasePoolSlots(simulation = state, model = controls.mode) {
+        if (model !== 'pool') return;
+        const activeWorkers = simulation.threads.filter(thread => thread.status !== 'queued' && thread.status !== 'done').length;
+        let freeSlots = simulation.workerCapacity - activeWorkers;
+        simulation.threads.forEach(thread => {
           if (freeSlots > 0 && thread.status === 'queued') {
             thread.status = 'ready';
             freeSlots -= 1;
           }
+        });
+      }
+
+      function advanceSimulationStep(simulation, model, parameters) {
+        simulation.threads.forEach(thread => {
+          if (thread.status === 'running') {
+            thread.status = 'ready';
+          } else if (thread.status === 'blocked') {
+            thread.blockedFor -= 1;
+            if (thread.blockedFor <= 0) {
+              thread.status = 'ready';
+              thread.blockedFor = 0;
+            }
+          }
+        });
+
+        const threadCount = simulation.threads.length;
+        const ready = getReadyThreads(simulation).sort((first, second) => {
+          const firstOffset = (first.id - simulation.nextThreadId + threadCount) % threadCount;
+          const secondOffset = (second.id - simulation.nextThreadId + threadCount) % threadCount;
+          return firstOffset - secondOffset;
+        });
+        const dispatched = ready.slice(0, Math.min(parameters.coreCount, ready.length));
+        if (dispatched.length) {
+          simulation.nextThreadId = dispatched[dispatched.length - 1].id % threadCount + 1;
+        }
+        const dispatchedIds = dispatched.map(thread => thread.id);
+        simulation.switches += dispatched.length;
+
+        simulation.threads.forEach(thread => {
+          if (thread.status === 'ready' && !dispatchedIds.includes(thread.id)) {
+            thread.waited += 1;
+          }
+        });
+
+        dispatched.forEach(thread => {
+          thread.status = 'running';
+          thread.remaining -= 1;
+          thread.stepsRun += 1;
+          if (thread.remaining <= 0) {
+            thread.remaining = 0;
+            thread.status = 'done';
+          } else if (((thread.id * 9301 + thread.stepsRun * 49297 + 233280) % 233280) / 233280 < parameters.ioChance) {
+            thread.status = 'blocked';
+            thread.blockedFor = parameters.deviceWait;
+          }
+        });
+
+        simulation.runningIds = dispatched
+          .filter(thread => thread.status === 'running')
+          .map(thread => thread.id);
+        releasePoolSlots(simulation, model);
+        simulation.tick += 1;
+        return simulation.threads.every(thread => thread.status === 'done');
+      }
+
+      function calculateModelResult(model, parameters) {
+        const simulation = {
+          runningIds: [],
+          workerCapacity: 0,
+          threads: [],
+          tick: 0,
+          switches: 0,
+          nextThreadId: 1
+        };
+        buildThreads(simulation, model, parameters);
+        while (!simulation.threads.every(thread => thread.status === 'done') && simulation.tick < 10000) {
+          advanceSimulationStep(simulation, model, parameters);
+        }
+        const throughput = (simulation.threads.length / (simulation.tick * 0.26)).toFixed(2);
+        return {
+          ticks: simulation.tick,
+          throughput: throughput,
+          dispatches: simulation.switches,
+          overhead: (simulation.switches * parameters.switchCost).toFixed(1)
+        };
+      }
+
+      function calculateAllModelResults() {
+        const parameters = getSimulationParameters();
+        state.comparisonRuns = {};
+        ['process', 'thread', 'pool', 'virtual'].forEach(model => {
+          state.comparisonRuns[model] = calculateModelResult(model, parameters);
         });
       }
 
@@ -2142,92 +2747,39 @@ virtual:  task leve + scheduler JVM</div>
         const coreCount = Number(controls.cores.value);
         const taskCount = Number(controls.threads.value);
         const nativeStackMb = Number(controls.stackMb.value);
-        let memoryMb;
-
-        if (controls.mode === 'process') {
-          memoryMb = taskCount * (nativeStackMb + 32);
-        } else if (controls.mode === 'thread') {
-          memoryMb = taskCount * nativeStackMb;
-        } else if (controls.mode === 'pool') {
-          memoryMb = Math.min(taskCount, coreCount * 2) * nativeStackMb;
-        } else {
-          const carriers = Math.min(taskCount, coreCount * 2);
-          memoryMb = carriers * nativeStackMb + taskCount / 1024;
-        }
+        const memoryMb = estimateMemoryMb(controls.mode, taskCount, coreCount, nativeStackMb);
 
         const util = ((active / coreCount) * 100).toFixed(0);
         const throughput = state.tick ? (done / (state.tick * 0.26)).toFixed(2) : '0.00';
         const overhead = (state.switches * Number(controls.switchCost.value)).toFixed(1);
 
         ui.cpuUtil.textContent = util + '%';
-        ui.throughput.textContent = throughput + ' jobs/s';
+        ui.throughput.textContent = throughput + ' tarefas/s';
         ui.latency.textContent = overhead + ' µs';
-        ui.memory.textContent = memoryMb < 1 ? memoryMb.toFixed(3) + ' MB' : memoryMb.toFixed(1) + ' MB';
-        ui.insight.innerHTML = '<strong>' + model.label + ':</strong> ' + model.description +
-          ' Estado atual: ' + active + ' no(s) core(s), ' + waiting + ' pronta(s), ' + blocked + ' bloqueada(s). ' +
-          queued + ' aguardando worker. Espera média na fila: ' + averageWait + ' ciclos. O conjunto de trabalho acrescenta unidades de cálculo (não simula cache/page faults); ' +
-          'overhead usa o custo por despacho informado. Throughput e memória são estimativas didáticas, não medições reais.';
+        ui.memory.textContent = formatMemoryMb(memoryMb);
+        ui.insight.textContent = model.label + ': ' + active + ' tarefa(s) usando core agora; ' + waiting +
+          ' pronta(s) na fila; ' + blocked + ' bloqueada(s) por I/O; ' + queued +
+          ' aguardando worker no pool. Espera média acumulada na fila: ' + averageWait + ' ciclo(s).';
+        ui.metricExplanation.textContent = state.tick
+          ? 'Ciclo ' + state.tick + ' de 260 ms didáticos. Vazão = tarefas concluídas ÷ tempo simulado; despachos = atribuições de tarefa a core; custo = despachos × custo configurado. Ocupação = cores ocupados ÷ cores disponíveis.'
+          : 'Antes de iniciar, os indicadores mostram o cenário zerado. Ao executar, atualizam a cada ciclo; os resultados finais ficam na tabela comparativa.';
         if (annotateTechnicalTermsIn) annotateTechnicalTermsIn(ui.insight);
 
         if (done === total) {
+          state.comparisonRuns[controls.mode] = {
+            ticks: state.tick,
+            throughput: throughput,
+            dispatches: state.switches,
+            overhead: overhead
+          };
           ui.toggleRun.textContent = '✓ Concluído';
         }
+        renderComparison();
       }
 
       function tickSimulation() {
         if (!state.running) return;
-
-        const ioChance = Number(controls.ioChance.value) / 100;
-        const deviceWait = Number(controls.deviceWait.value);
-        state.threads.forEach(thread => {
-          if (thread.status === 'running') {
-            thread.status = 'ready';
-          } else if (thread.status === 'blocked') {
-            thread.blockedFor -= 1;
-            if (thread.blockedFor <= 0) {
-              thread.status = 'ready';
-              thread.blockedFor = 0;
-            }
-          }
-        });
-
-        const threadCount = state.threads.length;
-        const ready = getReadyThreads().sort((first, second) => {
-          const firstOffset = (first.id - state.nextThreadId + threadCount) % threadCount;
-          const secondOffset = (second.id - state.nextThreadId + threadCount) % threadCount;
-          return firstOffset - secondOffset;
-        });
-        const dispatchCount = Math.min(Number(controls.cores.value), ready.length);
-        const dispatched = ready.slice(0, dispatchCount);
-        if (dispatched.length) {
-          state.nextThreadId = dispatched[dispatched.length - 1].id % threadCount + 1;
-        }
-        const dispatchedIds = dispatched.map(thread => thread.id);
-        state.switches += dispatched.length;
-
-        state.threads.forEach(thread => {
-          if (thread.status === 'ready' && !dispatchedIds.includes(thread.id)) {
-            thread.waited = (thread.waited || 0) + 1;
-          }
-        });
-
-        dispatched.forEach(thread => {
-          thread.status = 'running';
-          thread.remaining -= 1;
-          if (thread.remaining <= 0) {
-            thread.remaining = 0;
-            thread.status = 'done';
-          } else if (Math.random() < ioChance) {
-            thread.status = 'blocked';
-            thread.blockedFor = deviceWait;
-          }
-        });
-
-        state.runningIds = dispatched
-          .filter(thread => thread.status === 'running')
-          .map(thread => thread.id);
-        releasePoolSlots();
-        state.tick += 1;
+        advanceSimulationStep(state, controls.mode, getSimulationParameters());
         renderView();
 
         if (state.threads.every(thread => thread.status === 'done')) {
@@ -2251,6 +2803,8 @@ virtual:  task leve + scheduler JVM</div>
         state.switches = 0;
         buildThreads();
         ui.toggleRun.textContent = '▶ Simular';
+        const meta = getModelMeta(controls.mode);
+        ui.modelHelp.textContent = meta.help;
         renderView();
       }
 
@@ -2271,6 +2825,7 @@ virtual:  task leve + scheduler JVM</div>
         }
         state.running = true;
         ui.toggleRun.textContent = '⏸ Pausar';
+        renderComparison();
       }
 
       document.querySelectorAll('.toggle').forEach(button => {
@@ -2285,6 +2840,7 @@ virtual:  task leve + scheduler JVM</div>
       ['cores', 'threads', 'ioChance', 'switchCost', 'stackMb', 'deviceWait', 'workingSet'].forEach(id => {
         controls[id].addEventListener('input', () => {
           syncLabels();
+          calculateAllModelResults();
           resetSimulation();
         });
       });
@@ -2294,8 +2850,229 @@ virtual:  task leve + scheduler JVM</div>
 
       syncLabels();
       buildThreads();
+      ui.modelHelp.textContent = getModelMeta(controls.mode).help;
+      calculateAllModelResults();
       renderView();
+      renderComparison();
       setInterval(tickSimulation, 260);
+
+      const processUI = {
+        states: Array.from(document.querySelectorAll('.process-state')),
+        counter: document.getElementById('processCycleCounter'),
+        transition: document.getElementById('processTransition'),
+        cpuTitle: document.getElementById('processCpuTitle'),
+        cpuState: document.getElementById('processCpuState'),
+        memoryState: document.getElementById('processMemoryState'),
+        stepLabel: document.getElementById('processStepLabel'),
+        title: document.getElementById('processStepTitle'),
+        text: document.getElementById('processStepText'),
+        conceptTag: document.getElementById('processConceptTag'),
+        pid: document.getElementById('processPid'),
+        pcbState: document.getElementById('processPcbState'),
+        addressSpace: document.getElementById('processAddressSpace'),
+        threadState: document.getElementById('processThreadState'),
+        resourceState: document.getElementById('processResourceState'),
+        previous: document.getElementById('processPrevious'),
+        play: document.getElementById('processPlay'),
+        next: document.getElementById('processNext'),
+        reset: document.getElementById('processReset')
+      };
+      const processStages = [
+        {
+          state: 'new',
+          transition: 'O sistema operacional cria P-17',
+          title: 'Nasce um processo',
+          text: 'Um programa no disco é apenas instruções. Ao iniciar sua execução, o sistema operacional cria uma nova instância, atribui um identificador e começa a preparar os recursos que ela precisará.',
+          concept: 'programa → processo',
+          cpuTitle: '🧠 CPU / core',
+          cpu: 'Ainda não executa P-17; o kernel está preparando a nova tarefa.',
+          memory: 'O SO cria metadados para um espaço de endereçamento virtual próprio.',
+          pcbState: 'novo',
+          addressSpace: 'criando espaço virtual',
+          threadState: 'thread principal criada',
+          resource: 'inicialização'
+        },
+        {
+          state: 'ready',
+          transition: 'Admissão: recursos preparados → fila de prontos',
+          title: 'Pronto não quer dizer executando',
+          text: 'O carregador prepara o programa e o processo entra na fila de prontos. Ele pode executar, mas está esperando um core e a decisão do escalonador.',
+          concept: 'admit · fila ready',
+          cpuTitle: '🧠 CPU / core',
+          cpu: 'P-17 ainda aguarda despacho na fila de prontos.',
+          memory: 'Código, dados e pilha ficam mapeados no espaço virtual; páginas podem ser carregadas sob demanda.',
+          pcbState: 'pronto',
+          addressSpace: 'mapeado; páginas sob demanda',
+          threadState: 'pronta para executar',
+          resource: 'fila de prontos'
+        },
+        {
+          state: 'running',
+          transition: 'Despacho: escalonador escolhe P-17 para o core',
+          title: 'O processo recebe tempo de CPU',
+          text: 'O escalonador seleciona uma thread pronta pertencente a P-17. O dispatcher restaura o contexto dessa thread e o core passa a executar suas instruções. O processo está executando porque uma de suas threads está no core.',
+          concept: 'dispatch · thread em execução',
+          cpuTitle: '⚙️ CPU / core 0',
+          cpu: 'Executando a thread principal de P-17 em modo usuário.',
+          memory: 'A thread acessa código e dados no espaço virtual de P-17.',
+          pcbState: 'executando',
+          addressSpace: 'ativo no core',
+          threadState: 'running · PC/SP no contexto da thread',
+          resource: 'core 0'
+        },
+        {
+          state: 'waiting',
+          transition: 'P-17 solicita I/O bloqueante → espera pelo dispositivo',
+          title: 'A espera não precisa desperdiçar o core',
+          text: 'A thread principal pede dados que ainda não chegaram. No modelo de uma única thread, P-17 fica esperando; o kernel registra o evento e pode entregar o core a outro processo enquanto o dispositivo trabalha.',
+          concept: 'I/O · bloqueio · troca de processo',
+          cpuTitle: '⚙️ CPU / core 0',
+          cpu: 'P-17 aguarda I/O; o escalonador executa P-42 neste core.',
+          memory: 'O espaço virtual de P-17 permanece associado ao processo, embora não esteja ativo no core.',
+          pcbState: 'esperando',
+          addressSpace: 'preservado; fora do core',
+          threadState: 'bloqueada · aguardando I/O',
+          resource: 'leitura do dispositivo'
+        },
+        {
+          state: 'ready',
+          transition: 'Evento de conclusão → P-17 volta à fila de prontos',
+          title: 'O dispositivo conclui; P-17 fica pronto',
+          text: 'O dispositivo sinaliza a conclusão e o kernel/runtime registra o resultado. P-17 torna-se elegível para executar de novo, mas ainda pode esperar na fila até o escalonador escolher uma thread sua.',
+          concept: 'completion · wake-up',
+          cpuTitle: '⚙️ CPU / core 0',
+          cpu: 'P-42 continua executando; P-17 está pronto, aguardando o próximo despacho.',
+          memory: 'O resultado do I/O fica disponível no buffer acessível a P-17.',
+          pcbState: 'pronto',
+          addressSpace: 'preservado; aguardando despacho',
+          threadState: 'pronta após o evento',
+          resource: 'I/O concluído'
+        },
+        {
+          state: 'running',
+          transition: 'Novo despacho → restauração do contexto da thread',
+          title: 'P-17 retoma do ponto em que parou',
+          text: 'Quando recebe outro turno de CPU, o contexto da thread de P-17 é restaurado para continuar após a operação de I/O. O processador não retoma um “processo abstrato”: executa uma thread pertencente a ele.',
+          concept: 'context switch · retomada',
+          cpuTitle: '⚙️ CPU / core 0',
+          cpu: 'A thread principal de P-17 voltou a executar; o dado lido pode ser processado.',
+          memory: 'O espaço virtual de P-17 volta a ser usado pela thread no core.',
+          pcbState: 'executando',
+          addressSpace: 'ativo no core',
+          threadState: 'running · retomada após I/O',
+          resource: 'core 0'
+        },
+        {
+          state: 'terminated',
+          transition: 'A thread termina → o processo encerra e libera recursos',
+          title: 'Fim da execução, recolha de recursos',
+          text: 'A thread principal retorna ou termina com erro e, neste exemplo de processo com uma única thread, a execução do processo acaba. O sistema libera recursos; alguns sistemas mantêm brevemente informações de término para que o processo pai recolha o status.',
+          concept: 'exit · cleanup · status',
+          cpuTitle: '🧠 CPU / core',
+          cpu: 'P-17 não precisa mais de tempo de CPU; outro trabalho pode ser escalonado.',
+          memory: 'Mapeamentos e recursos são liberados após as regras de término e recolha do SO.',
+          pcbState: 'encerrado',
+          addressSpace: 'em liberação',
+          threadState: 'terminada',
+          resource: 'status de saída'
+        }
+      ];
+      let processStep = 0;
+      let processTimer = null;
+      let processPlaying = false;
+      let processHasStarted = false;
+
+      function renderProcessStage() {
+        const stage = processStages[processStep];
+        processUI.states.forEach(node => {
+          node.classList.toggle('active', node.dataset.state === stage.state);
+        });
+        processUI.counter.textContent = 'ETAPA ' + (processStep + 1) + ' / ' + processStages.length;
+        processUI.transition.textContent = stage.transition;
+        processUI.cpuTitle.textContent = stage.cpuTitle;
+        processUI.cpuState.textContent = stage.cpu;
+        processUI.memoryState.textContent = stage.memory;
+        processUI.stepLabel.textContent = 'PASSO ' + (processStep + 1) + ' DE ' + processStages.length;
+        processUI.title.textContent = stage.title;
+        processUI.text.textContent = stage.text;
+        processUI.conceptTag.textContent = stage.concept;
+        processUI.pcbState.textContent = stage.pcbState;
+        processUI.addressSpace.textContent = stage.addressSpace;
+        processUI.threadState.textContent = stage.threadState;
+        processUI.resourceState.textContent = stage.resource;
+        processUI.previous.disabled = processStep === 0 || processPlaying;
+        processUI.next.disabled = processStep === processStages.length - 1 || processPlaying;
+        processUI.play.textContent = processPlaying
+          ? '⏸ Pausar'
+          : processStep === processStages.length - 1
+            ? '↻ Reproduzir novamente'
+            : !processHasStarted && processStep === 0
+              ? '▶ Reproduzir ciclo'
+              : '▶ Continuar';
+        processUI.play.setAttribute('aria-pressed', String(processPlaying));
+        if (annotateTechnicalTermsIn) {
+          [processUI.transition, processUI.cpuState, processUI.memoryState, processUI.text, processUI.conceptTag,
+            processUI.pcbState, processUI.addressSpace, processUI.threadState, processUI.resourceState]
+            .forEach(annotateTechnicalTermsIn);
+        }
+      }
+
+      function stopProcessPlayback() {
+        if (processTimer) {
+          window.clearTimeout(processTimer);
+          processTimer = null;
+        }
+        processPlaying = false;
+      }
+
+      function scheduleProcessStep() {
+        processTimer = window.setTimeout(() => {
+          processTimer = null;
+          if (!processPlaying) return;
+          if (processStep < processStages.length - 1) {
+            processStep += 1;
+            renderProcessStage();
+          }
+          if (processStep === processStages.length - 1) {
+            processPlaying = false;
+            renderProcessStage();
+          } else {
+            scheduleProcessStep();
+          }
+        }, 1800);
+      }
+
+      processUI.previous.addEventListener('click', () => {
+        stopProcessPlayback();
+        processStep = Math.max(0, processStep - 1);
+        renderProcessStage();
+      });
+      processUI.next.addEventListener('click', () => {
+        stopProcessPlayback();
+        processStep = Math.min(processStages.length - 1, processStep + 1);
+        renderProcessStage();
+      });
+      processUI.play.addEventListener('click', () => {
+        if (processPlaying) {
+          stopProcessPlayback();
+        } else {
+          if (processStep === processStages.length - 1) {
+            processStep = 0;
+            processHasStarted = false;
+          }
+          processHasStarted = true;
+          processPlaying = true;
+        }
+        renderProcessStage();
+        if (processPlaying) scheduleProcessStep();
+      });
+      processUI.reset.addEventListener('click', () => {
+        stopProcessPlayback();
+        processStep = 0;
+        processHasStarted = false;
+        renderProcessStage();
+      });
+      renderProcessStage();
 
       const contextUI = {
         mode: document.getElementById('contextMode'),

@@ -2,6 +2,8 @@
 
 Uma página interativa em português para aprender o que são threads, por que são usadas, como funcionam e quais problemas trazem. O conteúdo parte da referência [arquitetura_de_sistemas_concorrentes.txt](./arquitetura_de_sistemas_concorrentes.txt) e está reunido em [index.html](./index.html).
 
+**Criado por Fabricio Nascimento Siqueira.**
+
 ## Abrir a página
 
 Não é necessário instalar dependências. A página é HTML, CSS e JavaScript sem bibliotecas externas.
@@ -19,6 +21,7 @@ Também é possível abrir `index.html` diretamente no navegador. O servidor loc
 ## O que você vai aprender
 
 - **Motivação:** diferenças entre processos e threads, custos de comunicação e o trade-off entre isolamento e memória compartilhada.
+- **Ciclo de vida de um processo:** animação de novo, pronto, executando, esperando e encerrado, acompanhando CPU, memória virtual e informações didáticas do PCB.
 - **Ciclo de vida:** criação, estado pronto, execução, bloqueio, retomada e término.
 - **Escalonamento:** filas de tarefas, workers e núcleos de CPU, observando como tarefas concorrentes dividem os recursos.
 - **Troca de contexto:** uma simulação passo a passo de uma thread bloqueada por I/O, com salvamento e restauração didáticos de PC, SP e registradores enquanto outra thread executa.
@@ -32,7 +35,27 @@ Também é possível abrir `index.html` diretamente no navegador. O servidor loc
 
 ### Ciclo de vida e recursos
 
-Na seção **Simulador**, ajuste os controles de núcleos, quantidade de tarefas, chance de I/O, espera, memória e custo de troca. Escolha um modelo e pressione **Simular**. A visualização mostra tarefas prontas, bloqueadas ou na fila do pool, além dos cores ocupados.
+Na seção **Simulador**, cada bolinha `T` representa uma tarefa. As tarefas prontas aguardam um core; as bloqueadas aguardam o período de I/O; e as tarefas excedentes de um pool aguardam um worker.
+
+Os parâmetros controlam:
+
+- **Núcleos de CPU:** número máximo de tarefas que podem executar ao mesmo tempo.
+- **Tarefas do cenário:** quantidade de trabalhos curtos que serão concluídos.
+- **Chance de bloqueio por I/O:** probabilidade didática de uma tarefa parar para aguardar I/O durante seu trabalho.
+- **Custo estimado por despacho:** valor usado para calcular o custo total de despachos; não é uma medição do computador.
+- **Reserva de pilha nativa:** estimativa simplificada de memória associada a workers nativos.
+- **Duração de espera de I/O:** número de ciclos didáticos em que uma tarefa permanece bloqueada.
+- **Trabalho de CPU por tarefa:** unidades abstratas de cálculo; não representa MB nem simula cache.
+
+A tabela **Resultados lado a lado** calcula automaticamente tempo em ciclos, vazão, despachos e memória estimada dos quatro modelos para o cenário atual. Selecione um modelo e pressione **Simular** para observar a animação. Os trabalhos e eventos de I/O são determinísticos, de modo que a animação corresponde aos resultados da tabela. Alterar qualquer parâmetro recalcula a comparação.
+
+Para um experimento, configure 24 tarefas, 2 núcleos, 60% de chance de I/O e espera de 8 ciclos; observe a diferença entre **Thread**, **Thread Pool** e **Virtual Thread**. Depois reduza a chance de I/O a 0% e observe como o paralelismo continua limitado pelos núcleos.
+
+Os ciclos, a vazão e a memória são saídas do modelo pedagógico, não medições reais. Os custos de criação, troca, isolamento, runtime, sistema operacional e dispositivo não são reproduzidos fielmente; processo, thread e virtual thread usam o mesmo escalonamento simplificado, enquanto o pool limita o número de workers.
+
+### Ciclo de vida do processo
+
+Na seção **Um processo em viagem pelo sistema operacional**, use **Anterior** e **Próxima etapa** para explorar as transições manualmente, ou **Reproduzir ciclo** para animar a sequência. É possível pausar e continuar ou reiniciar. A cena distingue o estado do processo, a thread que usa o core, o espaço virtual e os dados de controle do kernel. O exemplo representa um processo com uma única thread.
 
 ### Troca de contexto
 
